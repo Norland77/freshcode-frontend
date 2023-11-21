@@ -1,0 +1,76 @@
+.header {
+  background: #026AA7;
+  max-height: 10%;
+  > .container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: center;
+    > div {
+      > .logo {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        align-items: center;
+        background: #4E9ABD;
+        border-radius: 5px;
+        gap: 10px;
+        text-decoration: none;
+        > img {
+          width: 50px;
+        }
+        > span {
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+    > div {
+      justify-content: center;
+      background: #4E9ABD;
+      align-items: center;
+      text-align: center;
+      padding: 5px;
+      border-radius: 5px;
+      > .user {
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        > span {
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        > .logout {
+          cursor: pointer;
+          transition-duration: .3s;
+          &:hover {
+            color: #024366;
+            transition-duration: .3s;
+          }
+        }
+      }
+      > .auth {
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        height: 100%;
+        gap: 10px;
+        > a{
+          text-decoration: none;
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+          transition-duration: .3s;
+          &:hover {
+            color: #024366;
+            transition-duration: .3s;
+          }
+        }
+      }
+    }
+  }
+}

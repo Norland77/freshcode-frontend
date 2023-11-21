@@ -1,0 +1,85 @@
+.bg {
+  background: #4E9ABD;
+  height: 100%;
+}
+.register {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+  > h2 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  > form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+    > .validate_block {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      > .correct_input {
+        border: green solid 1px;
+      }
+      > .password_block {
+        display: flex;
+        position: relative;
+        > button {
+          position: absolute;
+          height: 100%;
+          right: 5%;
+          background: none;
+          border: none;
+          cursor: pointer;
+          transition-duration: .3s;
+          &:hover {
+            color: #fff;
+            transition-duration: .3s;
+          }
+        }
+        > .correct_input {
+          border: green solid 1px;
+        }
+      }
+    }
+    input {
+      border-radius: 20px;
+      background: none;
+      height: 60px;
+      width: 100%;
+      border: none;
+      color: black;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: normal;
+      padding: 5px 70px;
+    }
+    input[type="submit"] {
+      color: black;
+      text-align: center;
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: normal;
+      border-radius: 20px;
+      background: none;
+      width: 100%;
+      height: 60px;
+      border: green solid 1px;
+      transition-duration: .3s;
+      &:hover {
+        transition-duration: .3s;
+        color: #ffffff;
+        cursor: pointer;
+        background: #026AA7;
+      }
+    }
+  }
+}
