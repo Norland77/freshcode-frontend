@@ -1,5 +1,5 @@
 import styles from './login.module.scss'
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {ILogin, ILoginResponse} from "interfaces/Auth.ts";
 import {useState} from "react";
 import axios from "axios";
@@ -27,7 +27,7 @@ const Login = () => {
       [name]: value
     }))
   }
-  const register = async (): Promise<void> => {
+  const login = async (): Promise<void> => {
     event?.preventDefault()
     await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, {
       email: formData.email,
@@ -43,7 +43,7 @@ const Login = () => {
       dispatch({ type: 'SET_TOKEN', payload: token })
       dispatch({ type: 'SET_USER', payload: user })
       dispatch({ type: 'SET_LOGIN', payload: true })
-      navigate('/')
+      navigate("/board")
     })
   }
 
@@ -61,7 +61,7 @@ const Login = () => {
               <button className={styles.showBtn} onClick={handleClick} children={showPassword ? 'HIDE' : 'SHOW'}/>
             </div>
           </Row>
-          <input onClick={register} type={'submit'} value={'Зареєструватись'}/>
+          <input onClick={login} type={'submit'} value={'Увійти'}/>
         </form>
       </Container>
     </div>

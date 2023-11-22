@@ -24,7 +24,7 @@ const Header = () => {
     <div className={styles.header}>
       <Container className={styles.container}>
           <Col sm={1} md={3} xl={2}>
-            <Link className={styles.logo} to={'/'}>
+            <Link className={styles.logo} to={'/board'}>
               <Image rounded={true} src={logo} alt="logo"/>
               <span>Board</span>
             </Link>
