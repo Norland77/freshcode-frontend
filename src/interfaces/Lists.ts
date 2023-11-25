@@ -9,4 +9,22 @@ export interface ICards {
   title: string
   description: string
   listId: string
+  comments: IComments[]
+}
+
+export interface ICardEdit {
+  title?: string
+  description?: string
+}
+
+export interface IComments {
+  text: string
+  createdAt: string
+  user: {
+    username: string
+  }
+}
+
+export interface ICommentCreate {
+  text: string
 }

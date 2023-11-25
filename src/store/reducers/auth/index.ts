@@ -7,7 +7,7 @@ const initialState: AuthState = {
     email: ''
   },
   isLogin: false,
-  token: '',
+  currentToken: '',
 }
 
 export default function authReducer (state = initialState, action: AuthActions): AuthState {
@@ -17,7 +17,7 @@ export default function authReducer (state = initialState, action: AuthActions):
     case AuthActionEnum.SET_LOGIN:
       return { ...state, isLogin: action.payload }
     case AuthActionEnum.SET_TOKEN:
-      return { ...state, token: action.payload }
+      return { ...state, currentToken: action.payload }
     default:
       return state
   }

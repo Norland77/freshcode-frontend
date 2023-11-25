@@ -1,6 +1,7 @@
 import styles from './board-card.module.scss'
 import {useTypedSelector} from "hooks/useTypedSelector.ts";
 import {Link} from "react-router-dom";
+import {Badge} from "react-bootstrap";
 
 interface PropsType {
   id: string
@@ -13,7 +14,7 @@ const BoardCard = ({id, title, userId}: PropsType) => {
   return (
     <Link to={`/board/${id}`} className={styles.board}>
       <span>{title}</span>
-      { user.id === userId ? <div className={styles.dot}></div> : <></>}
+      { user.id === userId ? <Badge className={styles.dot} bg="light" pill> </Badge> : <></>}
     </Link>
   );
 };

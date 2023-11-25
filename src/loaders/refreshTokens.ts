@@ -25,7 +25,6 @@ export const refreshTokensLoader = async (): Promise<loaderType> => {
       email: loginRes.email
     }
   }).catch(err => {
-    console.log(err.response.status === 401)
     if (err.response.status === 401) {
       errStatus = err.response.status
     }

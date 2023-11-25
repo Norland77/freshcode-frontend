@@ -1,0 +1,69 @@
+.list {
+  width: 100%;
+  background: #E3E4E6;
+  padding: 5px;
+  > .list-group {
+    gap: 5px;
+  }
+  > .item {
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 5px 0;
+  }
+  > div {
+    display: flex;
+    justify-content: space-between;
+    > .dropdown {
+      > button {
+        background: none;
+        border: none;
+        color: #B5B4B5;
+        font-size: 18px;
+        font-weight: bold;
+        &::after {
+          content: '';
+          border: none;
+        }
+      }
+      > div {
+        inset: 0 0 0 -100px !important;
+      }
+    }
+    > span {
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  > button {
+    margin-top: 15px;
+    background: none;
+    border: none;
+    width: 22%;
+    text-align: left;
+    color: #B0B4B5;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+.addButton {
+  background: #55AF41;
+}
+.addInputBlock {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  gap: 5px;
+  > input {
+    height: 50%;
+    background: #fff;
+    border: none;
+    padding: 5px;
+    font-size: 18px;
+  }
+  > div {
+    display: flex;
+    gap: 5px;
+  }
+}

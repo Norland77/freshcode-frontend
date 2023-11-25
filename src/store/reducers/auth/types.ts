@@ -3,7 +3,7 @@ import { type ILoginResponse } from 'interfaces/Auth.ts'
 export interface AuthState {
   user: ILoginResponse
   isLogin: boolean
-  token: string
+  currentToken: string
 }
 
 export enum AuthActionEnum {

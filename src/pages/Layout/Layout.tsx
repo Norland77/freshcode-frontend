@@ -4,10 +4,11 @@ import styles from './layout.module.scss'
 import { type FC, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { type ILoginResponse } from 'interfaces/Auth'
+import {useTypedSelector} from "hooks/useTypedSelector.ts";
 const Layout: FC = () => {
   const dispatch = useDispatch()
   const { token, user, errStatus } = useLoaderData() as { token: string, user: ILoginResponse, errStatus: number }
-
+  const { currentToken, isLogin } = useTypedSelector(state => state.auth)
   useEffect(() => {
     if (token !== '') {
       dispatch({ type: 'SET_TOKEN', payload: token })
@@ -16,8 +17,8 @@ const Layout: FC = () => {
     }
   }, [])
   const currentPath = window.location.pathname;
-
-  if (errStatus === 401 && currentPath !== '/login' && currentPath !== '/registration') {
+  
+  if (errStatus === 401 && currentPath !== '/login' && currentPath !== '/registration' && isLogin === false) {
     return <Navigate to={"/login"} />
   }
 

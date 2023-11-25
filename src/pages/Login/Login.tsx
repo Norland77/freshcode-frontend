@@ -1,5 +1,5 @@
 import styles from './login.module.scss'
-import {Navigate, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {ILogin, ILoginResponse} from "interfaces/Auth.ts";
 import {useState} from "react";
 import axios from "axios";

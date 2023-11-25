@@ -11,7 +11,7 @@ import {useTypedSelector} from "hooks/useTypedSelector.ts";
 
 const BoardsPage = () => {
   const boards = useLoaderData() as IBoards[];
-  const { token } = useTypedSelector(state => state.auth)
+  const { currentToken } = useTypedSelector(state => state.auth)
   const [visibleInput, setVisibleInput] = useState(false)
   const [visibleButton, setVisibleButton] = useState(true)
   const [formData, setFormData] = useState<IBoardsCreate>({
@@ -45,7 +45,7 @@ const BoardsPage = () => {
       title: formData.title
     }, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${currentToken}`,
       },
       withCredentials: true
     }).then(res => {
@@ -63,28 +63,38 @@ const BoardsPage = () => {
         </Col>
       </Row>
       {chunkedBoards.map((chunk, rowIndex) => (
-        <Row className={styles.row} key={rowIndex}>
-          {chunk.map((item) => (
-            <Col xl={4} md={4} className={styles.col} key={item.id}>
-              <BoardCard id={item.id} title={item.title} userId={item.userId} />
-            </Col>
-          ))}
-        </Row>
+          <Row className={styles.row} key={rowIndex}>
+            {chunk.map((item) => (
+              <Col xl={4} md={4} className={styles.col} key={item.id}>
+                <BoardCard id={item.id} title={item.title} userId={item.userId} />
+              </Col>
+            ))}
+            { chunk.length < 3 ?
+              <Col xl={4} md={4} className={styles.col}>
+                <button style={!visibleButton ? {display: "none"}: {display: "block"}} onClick={showInput} className={styles.addButton} >Create new Board...</button>
+                <div style={visibleInput ? { display: "flex" } : { display: "none" }} className={styles.addInputBlock}>
+                  <input type={"text"} placeholder={'Title'} name={'title'} value={formData.title} onChange={handleChange} />
+                  <div>
+                    <button onClick={createBoard}>Create</button>
+                    <button onClick={showInput}>Cancel</button>
+                  </div>
+                </div>
+              </Col>
+              : <></> }
+          </Row>
       ))}
-      {(chunkedBoards.length === 0 || chunkedBoards.every(row => row.length === 3) || chunkedBoards[chunkedBoards.length - 1].length < 3) && (
-        <Row className={styles.row}>
-          <Col xl={4} md={4} className={styles.col}>
-            <button style={!visibleButton ? {display: "none"}: {display: "block"}} onClick={showInput} className={styles.addButton} >Create new Board...</button>
-            <div style={visibleInput ? { display: "flex" } : { display: "none" }} className={styles.addInputBlock}>
-              <input type={"text"} placeholder={'Title'} name={'title'} value={formData.title} onChange={handleChange} />
-              <div>
-                <button onClick={createBoard}>Create</button>
-                <button onClick={showInput}>Cancel</button>
-              </div>
+      { boards.length % 3 === 0 ? <Row className={styles.row}>
+        <Col xl={4} md={4} className={styles.col}>
+          <button style={!visibleButton ? {display: "none"}: {display: "block"}} onClick={showInput} className={styles.addButton} >Create new Board...</button>
+          <div style={visibleInput ? { display: "flex" } : { display: "none" }} className={styles.addInputBlock}>
+            <input type={"text"} placeholder={'Title'} name={'title'} value={formData.title} onChange={handleChange} />
+            <div>
+              <button onClick={createBoard}>Create</button>
+              <button onClick={showInput}>Cancel</button>
             </div>
-          </Col>
-        </Row>
-      )}
+          </div>
+        </Col>
+      </Row> : <></>}
     </Container>
   );
 };

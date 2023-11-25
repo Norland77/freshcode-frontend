@@ -4,7 +4,7 @@ import {IBoards} from "interfaces/Boards.ts";
 
 export const boardsLoader = async (token: string) => {
   let boards: IBoards[] = []
-
+  if (token)
   await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/board/all`, {
     headers: {
       Authorization: `Bearer ${token}`,
