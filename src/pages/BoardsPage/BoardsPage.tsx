@@ -25,7 +25,7 @@ const BoardsPage = () => {
       [name]: value
     }))
   }
-  // Chunk the boards array into groups of 3
+
   const chunkedBoards: IBoards[][] = boards.reduce((result, item, index) => {
     const chunkIndex = Math.floor(index / 3);
     result[chunkIndex] = (result[chunkIndex] || []) as IBoards[];

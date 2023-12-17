@@ -17,8 +17,9 @@ function App() {
     <Route path="/" element={<Layout/>} loader={refreshTokensLoader}>
       <Route path="/login" element={<Login />}/>
       <Route path="/registration" element={<Registration />}/>
-      <Route path="/board" element={<BoardsPage />} loader={() => boardsLoader(currentToken)}/>
+      <Route path="/" element={<BoardsPage />} loader={() => boardsLoader(currentToken)}/>
       <Route path="/board/:id" element={<BoardPage />}  loader={({ params }) => listsLoader(params.id, currentToken)}/>
+      <Route path=""/>
     </Route>
   ))
 

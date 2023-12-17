@@ -15,8 +15,14 @@
       > .body {
         display: flex;
         gap: 20px;
+        @media (max-width: 768px) {
+          flex-direction: column-reverse;
+        }
         > .left {
           width: 70%;
+          @media (max-width: 768px) {
+            width: 100%;
+          }
           > input {
             margin-left: 6%;
             width: 94%;
@@ -72,7 +78,7 @@
                   resize: none;
                 }
                 > button {
-                  width: 15%;
+                  width: 80px;
                 }
                 > p {
                   font-size: 16px;
@@ -140,6 +146,14 @@
           display: flex;
           flex-direction: column;
           gap: 10px;
+          @media (max-width: 768px) {
+            width: 100%;
+            flex-direction: row;
+          }
+          @media (max-width: 320px) {
+            width: 100%;
+            flex-direction: column;
+          }
           > h3 {
             font-size: 20px;
             font-weight: bold;

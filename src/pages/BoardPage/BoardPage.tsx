@@ -1,6 +1,6 @@
-import {useLoaderData, useNavigate} from "react-router-dom";
+import {useLoaderData} from "react-router-dom";
 import {ILists} from "interfaces/Lists.ts";
-import {Badge, Button, CloseButton, Col, Container, Offcanvas, Row} from "react-bootstrap";
+import { Button, CloseButton, Col, Container, Row} from "react-bootstrap";
 import ListItem from "../../components/ListItem/ListItem.tsx";
 import {IBoards, IBoardsCreate} from "interfaces/Boards.ts";
 import styles from './board-page.module.scss'
@@ -8,9 +8,9 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {listsLoader} from "../../loaders/listsLoader.ts";
 import {useTypedSelector} from "hooks/useTypedSelector.ts";
 import axios from "axios";
-import activityImg from 'img/activity.svg'
 import {IActivity} from "interfaces/Activity.ts";
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import OffcanvasEll from "../../components/Offcanvas/Offcanvas.tsx";
 
 const BoardPage = () => {
   const { lists, board, activity } = useLoaderData() as { lists: ILists[], board: IBoards, activity: IActivity[] };
@@ -20,7 +20,6 @@ const BoardPage = () => {
   const [visibleInput, setVisibleInput] = useState(false)
   const [visibleButton, setVisibleButton] = useState(true)
   const [activityData, setActivityData] = useState(activity)
-  const navigate = useNavigate();
   const [formData, setFormData] = useState<IBoardsCreate>({
     title: ''
   })
@@ -86,17 +85,8 @@ const BoardPage = () => {
     showInput()
   }
 
-  const removeBoard = async () => {
-    await axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/board/delete/${board.id}`, {
-      headers: {
-        Authorization: `Bearer ${currentToken}`,
-      },
-      withCredentials: true
-    })
-    navigate('/board');
-  }
-
   async function handleOnDragEnd(result: any) {
+
     await axios.put(`${import.meta.env.VITE_SERVER_URL}/api/card/move/${board.id}/${result.draggableId}/${result.destination.droppableId}`, {
 
     },{
@@ -112,58 +102,33 @@ const BoardPage = () => {
   return (
     <div className={styles.bg}>
       <Container>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
         <Row className={styles.header}>
           <Col xl={2} className={styles.title}>{board.title}</Col>
           <Col xl={2} className={styles.buttonBlock}>
             <button onClick={handleShow}>Show menu</button>
           </Col>
         </Row>
-        <Offcanvas className={styles.offcanvas} placement={"end"} backdrop={false} show={show} onHide={handleClose}>
-          <Offcanvas.Header className={styles.offcanvas_header} closeButton>
-            <Offcanvas.Title className={styles.offcanvas_title}>Menu</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body className={styles.offcanvas_body}>
-            <div style={user.id !== board.userId ? {display: "none"} : {}} className={styles.remove}>
-              <button onClick={removeBoard}>Remove board</button>
-            </div>
-            <div className={styles.activity}>
-              <div>
-                <img src={activityImg} alt="activityImg"/>
-                <span>Activity</span>
-              </div>
-              <div className={styles.list}>
-                {activityData.length === 0 ? activity.map((item) => (
-                  <div>
-                    <Badge bg={"#D6DADD"} className={styles.user}>
-                      {item.description[0]}
-                    </Badge>
-                    <div>{item.description}</div>
-                  </div>
-                )) : activityData.map((item) => (
-                  <div>
-                    <Badge bg={"#D6DADD"} className={styles.user}>
-                      {item.description[0]}
-                    </Badge>
-                    <div>{item.description}</div>
-                  </div>))}
-              </div>
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
+          <OffcanvasEll
+            boardId={board.id}
+            activity={activity}
+            activityData={activityData}
+            handleClose={handleClose}
+            show={show}
+            boardUserId={board.userId}
+            userId={user.id}
+          />
         {chunkedBoards.map((chunk, rowIndex) => (
           <Row className={styles.row} key={rowIndex}>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
               {chunk.map((item) => (
                 <Droppable droppableId={item.id}>
                   {(provided) => (
-                    <Col xl={4} key={item.id} {...provided.droppableProps} ref={provided.innerRef}>
+                    <Col xl={4} md={4} key={item.id} {...provided.droppableProps} ref={provided.innerRef}>
                       <ListItem setRender={setRender} render={render} boardId={board.id} listId={item.id} title={item.title} cards={item.cards} listActivity={activity}></ListItem>
                     </Col>
                   )}
                 </Droppable>
               ))}
-            </DragDropContext>
-            
             {chunk.length < 3
               ? <Col sm={3} className={styles.addInput}>
                 <button style={!visibleButton ? {display: "none"}: {display: "block"}} onClick={showInput}>Add a list...</button>
@@ -200,6 +165,7 @@ const BoardPage = () => {
             </div>
           </Col>
         </Row> : <></>}
+        </DragDropContext>
       </Container>
     </div>
   );

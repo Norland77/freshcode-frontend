@@ -1,13 +1,15 @@
 import styles from './login.module.scss'
-import { useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {ILogin, ILoginResponse} from "interfaces/Auth.ts";
 import {useState} from "react";
 import axios from "axios";
 import {Container, Row} from "react-bootstrap";
 import {jwtDecode} from "jwt-decode";
 import {useDispatch} from "react-redux";
+import {useTypedSelector} from "hooks/useTypedSelector.ts";
 const Login = () => {
   const navigate = useNavigate()
+  const { isLogin } = useTypedSelector(state => state.auth)
   const [formData, setFormData] = useState<ILogin>({
     email: '',
     password: '',
@@ -43,28 +45,32 @@ const Login = () => {
       dispatch({ type: 'SET_TOKEN', payload: token })
       dispatch({ type: 'SET_USER', payload: user })
       dispatch({ type: 'SET_LOGIN', payload: true })
-      navigate("/board")
+      navigate('/')
     })
   }
 
   return (
-    <div className={styles.bg}>
-      <Container className={styles.register}>
-        <h2>Login</h2>
-        <form>
-          <Row sm={1} className={styles.validate_block}>
-            <input required={true} className={styles.correct_input} type="email" placeholder={'email'} name={'email'} value={formData.email} onChange={handleChange}/>
-          </Row>
-          <Row className={styles.validate_block}>
-            <div className={styles.password_block}>
-              <input required={true} className={styles.correct_input} type={showPassword ? 'text' : 'password' } placeholder={'Password'} name={'password'} value={formData.password} onChange={handleChange}/>
-              <button className={styles.showBtn} onClick={handleClick} children={showPassword ? 'HIDE' : 'SHOW'}/>
-            </div>
-          </Row>
-          <input onClick={login} type={'submit'} value={'Увійти'}/>
-        </form>
-      </Container>
-    </div>
+    <>
+    { isLogin ? (<Navigate to={'/'} />) :
+        <div className={styles.bg}>
+          <Container className={styles.register}>
+            <h2>Login</h2>
+            <form>
+              <Row sm={1} className={styles.validate_block}>
+                <input required={true} className={styles.correct_input} type="email" placeholder={'email'} name={'email'} value={formData.email} onChange={handleChange}/>
+              </Row>
+              <Row className={styles.validate_block}>
+                <div className={styles.password_block}>
+                  <input required={true} className={styles.correct_input} type={showPassword ? 'text' : 'password' } placeholder={'Password'} name={'password'} value={formData.password} onChange={handleChange}/>
+                  <button className={styles.showBtn} onClick={handleClick} children={showPassword ? 'HIDE' : 'SHOW'}/>
+                </div>
+              </Row>
+              <input onClick={login} type={'submit'} value={'Увійти'}/>
+            </form>
+          </Container>
+        </div>
+    }
+    </>
   );
 };
 

@@ -87,7 +87,7 @@ const CardItem = ({card, listTitle, boardId, setRender, render, listActivity}: P
   return (
     <div className={styles.card}>
       <button onClick={handleShow}>{card.title}</button>
-      <Modal size={"xl"} className={styles.modal} show={show} onHide={handleClose}>
+      <Modal fullscreen={"sm-down"} size={"xl"} className={styles.modal} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
             <div className={styles.header}>

@@ -16,7 +16,7 @@ const Header = () => {
       if (res.data === 'OK') {
         dispatch({ type: 'SET_LOGIN', payload: false })
         dispatch({ type: 'SET_ADMIN', payload: false })
-        navigate('/')
+        navigate('/login')
       }
     })
   }
@@ -24,7 +24,7 @@ const Header = () => {
     <div className={styles.header}>
       <Container className={styles.container}>
           <Col sm={1} md={3} xl={2}>
-            <Link className={styles.logo} to={'/board'}>
+            <Link className={styles.logo} to={'/'}>
               <Image rounded={true} src={logo} alt="logo"/>
               <span>Board</span>
             </Link>
