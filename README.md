@@ -20,13 +20,13 @@ Make sure you have the following installed on your system:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/react-vite-project-management.git
+    git clone https://github.com/Norland77/freshcode-frontend.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd react-vite-project-management
+    cd freshcode-frontend
     ```
 
 3. Install dependencies:
