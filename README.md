@@ -37,9 +37,7 @@ Make sure you have the following installed on your system:
 
 ### Running the Application
 
-#### Development Mode
-
-Start the application in development mode with the following command:
+Start the application with the following command:
 
 ```bash
 npm run dev
@@ -47,25 +45,14 @@ npm run dev
 
 The development server will be accessible at `http://localhost:5173`.
 
-#### Preview Mode
-
-To run the application in preview mode, use the following command:
-
-```bash
-npm run preview
-```
-
-The preview server will be accessible at `http://localhost:4173`.
-
 ## Usage
 
-- Access the application in your web browser at the appropriate port for the mode you're running (5173 for development, 4173 for preview).
+- Access the application in your web browser at the appropriate port for the mode you're running.
 - Create project boards and add lists and cards to manage project tasks effectively.
 
 ## Commands
 
 - To start the development server: `npm run dev`
-- To start the preview server: `npm run preview`
 
 ## Contributing
 
